@@ -1,4 +1,6 @@
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
 import { Component } from '@angular/core';
+declare var $: any
 
 @Component({
   selector: 'app-root',
