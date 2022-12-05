@@ -1,3 +1,5 @@
+import { SpinnerType } from './../../../base/base.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { DialogService } from './../dialog.service';
 import { FileUploadDialogState, FileUploadDialogComponent } from './../../../dialogs/file-upload-dialog/file-upload-dialog.component';
 import { CustomToastrService, ToastrMessageType } from './../../ui/custom-toastr.service';
@@ -15,7 +17,7 @@ import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 export class FileUploadComponent {
 
   constructor(private httpClientService: HttpClientService, private alertify: AlertifyService, private toastr: CustomToastrService,
-    private dialogService:DialogService) { }
+    private dialogService:DialogService, private spinner: NgxSpinnerService) { }
 
   public files: NgxFileDropEntry[];
 
@@ -34,6 +36,7 @@ export class FileUploadComponent {
       componentType: FileUploadDialogComponent,
       data: FileUploadDialogState.Yes,
       afterClosed : () => {
+        this.spinner.show(SpinnerType.AtomBall);
         this.httpClientService.post({
           controller: this.options.controller,
           action: this.options.action,
@@ -53,10 +56,13 @@ export class FileUploadComponent {
           } else {
             this.toastr.message(successMessage, "Info", ToastrMessageType.Success)
           }
+          this.spinner.hide(SpinnerType.AtomBall);
   
         }, (errorResponse: HttpErrorResponse) => {
   
           const errorMessage: string = "An error was encountered while uploading the file.";
+          
+          this.spinner.hide(SpinnerType.AtomBall);
   
           if (this.options.isAdminPage) {
             this.alertify.message(errorMessage, {
@@ -66,8 +72,9 @@ export class FileUploadComponent {
               delay: 4
             })
           } else {
-            this.toastr.message(errorMessage, "Info", ToastrMessageType.Error)
+            this.toastr.message(errorMessage, "Info", ToastrMessageType.Error);
           }
+          
         })
       }
     })
