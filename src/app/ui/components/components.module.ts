@@ -5,7 +5,8 @@ import { CommonModule } from '@angular/common';
 import { ProductsModule } from './products/products.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     BasketModule,
