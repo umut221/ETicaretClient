@@ -16,6 +16,5 @@ export class DashboardComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.alertify.message("Bu bir testtir", new AlertifyOptions());
-    this.showSpinner(SpinnerType.AtomBall);
   }
 }

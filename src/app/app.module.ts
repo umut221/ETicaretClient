@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UiModule } from './ui/ui.module';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,12 @@ import { HttpClientModule } from '@angular/common/http';
     ToastrModule.forRoot(),
     NgxSpinnerModule,
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem("accessToken"),
+        allowedDomains: ["localhost:7259"]
+      }
+    }),
     MatDialogModule
   ],
   providers: [

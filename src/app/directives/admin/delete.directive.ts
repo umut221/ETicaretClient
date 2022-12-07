@@ -37,6 +37,7 @@ export class DeleteDirective {
       data: DeleteState.Yes,
       afterClosed:
         async () => {
+          this.spinner.show(SpinnerType.AtomBall)
           const td: HTMLTableCellElement = this.element.nativeElement;
           await this.httpClientService.delete({
             controller: this.controller
@@ -46,6 +47,7 @@ export class DeleteDirective {
               left: "+=50",
               height: "toogle"
             }, 700, () => {
+              this.spinner.hide(SpinnerType.AtomBall);
               this.callBack.emit();
               this.alertify.message("The product has been successfully deleted", {
                 messageType: MessageType.Success,
@@ -55,7 +57,7 @@ export class DeleteDirective {
               })
             });
           }, (errorMessage: HttpErrorResponse) => {
-            this.spinner.hide(SpinnerType.AtomBall)
+            this.spinner.hide(SpinnerType.AtomBall);
             this.alertify.message("An unexpected error was encountered while deleting the product", {
               messageType: MessageType.Error,
               dismissOthers: true,
