@@ -10,11 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent extends BaseComponent implements OnInit {
 
-  constructor(private alertify: AlertifyService, spinner:NgxSpinnerService) {
+  constructor(spinner:NgxSpinnerService) {
     super(spinner)
   }
 
   ngOnInit(): void {
-    this.alertify.message("Bu bir testtir", new AlertifyOptions());
   }
 }

@@ -120,5 +120,7 @@
       }
     }
   },
-  "defaultProject": "ETicaretClient"
+  "cli": {
+    "analytics": false
+  }
 }

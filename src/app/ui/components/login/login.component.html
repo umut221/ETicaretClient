@@ -18,6 +18,13 @@
 
             <button type="submit" class="btn btn-primary"
                 (click)="login(txtUsernameOrEmail.value, txtPassword.value)">Login</button>
+                <hr>
+
+            <div class="btn-group">
+                <asl-google-signin-button></asl-google-signin-button>
+                <button class="btn"><img style="max-width: 30px; cursor: pointer;" (click)="facebookLogin()" src="../../../../assets/facebook.png" ></button>
+            </div>
+
         </div>
         <div class="col-md-3"></div>
     </div>

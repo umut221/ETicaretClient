@@ -5,9 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AlertifyService, MessageType, Position } from './../../services/admin/alertify.service';
 import { HttpClientService } from './../../services/common/http-client.service';
 import { DeleteDialogComponent, DeleteState } from './../../dialogs/delete-dialog/delete-dialog.component';
-import { ProductService } from './../../services/common/models/product.service';
 import { Directive, ElementRef, Renderer2, HostListener, Input, Output, EventEmitter } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 
 declare var $: any;
 

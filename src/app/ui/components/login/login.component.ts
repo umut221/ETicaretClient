@@ -4,6 +4,7 @@ import { BaseComponent, SpinnerType } from './../../../base/base.component';
 import { UserService } from './../../../services/common/models/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SocialAuthService, SocialUser, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +13,28 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent extends BaseComponent implements OnInit {
 
-  constructor(private userService:UserService, spinner:NgxSpinnerService, private authService:AuthService, private activatedRoute: ActivatedRoute, private router:Router) { 
+  constructor(private userService:UserService, spinner:NgxSpinnerService, private authService:AuthService, private activatedRoute: ActivatedRoute, private router:Router,
+    private socialAuthService: SocialAuthService) { 
     super(spinner);
+    socialAuthService.authState.subscribe(async (user: SocialUser) => {
+      this.showSpinner(SpinnerType.AtomBall);
+      switch (user.provider){
+        case "GOOGLE":
+          await this.userService.googleLogin(user, () => {
+            this.authService.IdentityCheck();
+            this.hideSpinner(SpinnerType.AtomBall);
+            if(this.authService.isAuthenticated) this.router.navigate([""]);
+          }); 
+          break;
+        case "FACEBOOK":
+          await this.userService.facebookLogin(user, () => {
+            this.authService.IdentityCheck();
+            this.hideSpinner(SpinnerType.AtomBall);
+            if(this.authService.isAuthenticated) this.router.navigate([""]);
+          })
+          break;
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -27,9 +48,15 @@ export class LoginComponent extends BaseComponent implements OnInit {
         const returnUrl: string =params["returnUrl"];
         if(returnUrl) 
             this.router.navigate([returnUrl]);
+        else
+            this.router.navigate([""]);
       });
       this.hideSpinner(SpinnerType.AtomBall);
     });
+  }
+
+  facebookLogin(){
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
 }

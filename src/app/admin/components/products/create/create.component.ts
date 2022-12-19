@@ -1,4 +1,3 @@
-import { FileUploadOptions } from './../../../../services/common/file-upload/file-upload.component';
 import { AlertifyService, MessageType, Position } from './../../../../services/admin/alertify.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from './../../../../base/base.component';

@@ -5,7 +5,7 @@ import { Create_User } from './../../../contracts/users/create_user';
 import { UserService } from './../../../services/common/models/user.service';
 import { User } from './../../../entities/user';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -14,11 +14,11 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 })
 export class RegisterComponent extends BaseComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private userService:UserService, private toastr: CustomToastrService, spinner:NgxSpinnerService) { 
+  constructor(private formBuilder: UntypedFormBuilder, private userService:UserService, private toastr: CustomToastrService, spinner:NgxSpinnerService) { 
     super(spinner);
   }
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
