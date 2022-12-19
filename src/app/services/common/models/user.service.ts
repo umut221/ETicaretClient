@@ -20,46 +20,6 @@ export class UserService {
     },user);
     return await firstValueFrom(observable) as Create_User;
   }
-
-  async login(usernameOrEmail:string, password:string, successCallBack?: () => void): Promise<any>{
-    const observable:Observable<any | TokenResponse> = this.httpClientService.post<any | TokenResponse>({
-      controller:"users",
-      action:"Login"
-    }, {usernameOrEmail, password} );
-    const tokenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse;
-    if(tokenResponse){
-      localStorage.setItem("accessToken", tokenResponse.token.accessToken);
-    } 
-
-      this.toastr.message("User login successfully.","Info", ToastrMessageType.Success, ToastrPosition.BottomRight);
-    successCallBack();
-  }
-
-  async googleLogin(user : SocialUser, callBackFunction?: () => void): Promise<any>{
-    const observable: Observable<SocialUser | TokenResponse> = this.httpClientService.post<SocialUser | TokenResponse>({
-      controller:"users",
-      action:"google-login"
-    },user)
-    const tokenResponse:TokenResponse = await firstValueFrom(observable) as TokenResponse;
-    if(tokenResponse){
-      localStorage.setItem("accessToken", tokenResponse.token.accessToken);
-      this.toastr.message("Google login successfully.","Info!",ToastrMessageType.Success, ToastrPosition.BottomRight);
-    }
-    callBackFunction();
-  }
-
-  async facebookLogin(user: SocialUser, callBackFunction?: () => void) : Promise<any>{
-    const observable: Observable<SocialUser | TokenResponse> = this.httpClientService.post<SocialUser | TokenResponse>({
-      controller:"users",
-      action:"facebook-login"
-    },user);
-    const tokenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse;
-    if(TokenResponse){
-      localStorage.setItem("accessToken", tokenResponse.token.accessToken);
-      this.toastr.message("Facebook login successfully.","Info!", ToastrMessageType.Success, ToastrPosition.BottomRight);
-    }
-    callBackFunction();
-  }
 }
 
 
